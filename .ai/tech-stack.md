@@ -1,4 +1,4 @@
-- frontend: angular 19, angular material, ag-grid
+- frontend: angular 19, angular material
 - backend: spring boot
 - database: postgresql or mongodb
 - authentication: amazon cognito
