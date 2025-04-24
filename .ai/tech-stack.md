@@ -1,5 +1,5 @@
 - frontend: angular 19, angular material
 - backend: spring boot
-- database: postgresql or mongodb
+- database: postgresql on AWS RDS
 - authentication: amazon cognito
 - CI/CD: services from AWS
