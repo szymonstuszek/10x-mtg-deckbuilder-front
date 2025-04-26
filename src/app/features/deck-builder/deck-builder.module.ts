@@ -89,15 +89,11 @@ const routes: Routes = [
     MatTooltipModule,
     
     // Store modules
-    StoreModule.forFeature('deckBuilder', {
-      deck: deckReducer,
-      cardList: cardListReducer
-    }),
-    EffectsModule.forFeature([DeckEffects, CardListEffects])
-  ],
-  providers: [
-    DeckService,
-    CardService
+    // StoreModule.forFeature('deckBuilder', {
+    //   deck: deckReducer,
+    //   cardList: cardListReducer
+    // }),
+    // EffectsModule.forFeature([DeckEffects, CardListEffects])
   ]
 })
 export class DeckBuilderModule { } 

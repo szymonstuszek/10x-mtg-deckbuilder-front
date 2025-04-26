@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -13,6 +13,11 @@ import { selectDeckState } from './deck.selectors';
 
 @Injectable()
 export class DeckEffects {
+  private actions$ = inject(Actions);
+  private deckService = inject(DeckService);
+  private store = inject(Store);
+  private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
   
   // Load a deck by ID
   loadDeck$ = createEffect(() => this.actions$.pipe(
@@ -94,11 +99,7 @@ export class DeckEffects {
     })
   ));
   
-  constructor(
-    private actions$: Actions,
-    private deckService: DeckService,
-    private store: Store,
-    private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+  constructor() {
+    console.log('DeckEffects constructor');
+  }
 } 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -11,6 +11,10 @@ import { selectCardFilters, selectCardListPagination, selectCardListSort } from 
 
 @Injectable()
 export class CardListEffects {
+  private actions$ = inject(Actions);
+  private cardService = inject(CardService);
+  private store = inject(Store);
+  private snackBar = inject(MatSnackBar);
   
   // Load cards based on current filters, pagination, and sorting
   loadCards$ = createEffect(() => this.actions$.pipe(
@@ -40,10 +44,7 @@ export class CardListEffects {
     )
   ));
   
-  constructor(
-    private actions$: Actions,
-    private cardService: CardService,
-    private store: Store,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor() {
+    console.log('CardListEffects constructor');
+  }
 } 

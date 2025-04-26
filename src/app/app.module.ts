@@ -13,6 +13,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { DeckEffects } from './features/deck-builder/store/deck/deck.effects';
+import { cardListReducer } from './features/deck-builder/store/card-list/card-list.reducer';
+import { CardListEffects } from './features/deck-builder/store/card-list/card-list.effects';
+import { deckReducer } from './features/deck-builder/store/deck/deck.reducer';
+import { DeckService } from './features/deck-builder/services/deck.service';
+import { CardService } from './features/deck-builder/services/card.service';
 
 @NgModule({
   declarations: [
@@ -32,14 +38,24 @@ import { environment } from '../environments/environment';
     
     // NgRx
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([DeckEffects, CardListEffects]),
+
+    StoreModule.forFeature('deckBuilder', {
+      deck: deckReducer,
+      cardList: cardListReducer
+    }),
+    // EffectsModule.forFeature([DeckEffects, CardListEffects]),
+
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pause recording actions and state changes when the extension window is not open
     })
   ],
-  providers: [],
+  providers: [
+    DeckService,
+    CardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

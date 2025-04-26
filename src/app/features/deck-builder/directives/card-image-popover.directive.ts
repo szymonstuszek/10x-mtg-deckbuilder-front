@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   standalone: false
 })
 export class CardImagePopoverDirective implements OnDestroy {
-  @Input('appCardImagePopover') card!: Card;
+  @Input() card!: Card;
   
   private overlayRef: OverlayRef | null = null;
   private destroy$ = new Subject<void>();

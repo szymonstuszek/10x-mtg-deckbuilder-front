@@ -1,9 +1,9 @@
 <div class="deck-builder-container">
   <!-- Header with deck name, format, validity, and actions -->
   <app-deck-header
-    [metadata]="deckMetadata$ | async"
-    [validity]="deckValidity$ | async"
-    [isSaving]="deckIsSaving$ | async"
+    [metadata]="(deckMetadata$ | async)!"
+    [validity]="(deckValidity$ | async)!"
+    [isSaving]="(deckIsSaving$ | async) ?? false"
     (deckNameChanged)="onDeckNameChanged($event)"
     (saveClicked)="onSaveClicked()"
     (newClicked)="onNewClicked()">
@@ -13,7 +13,7 @@
     <!-- Left panel: Deck summary showing cards in deck -->
     <div class="deck-summary-panel">
       <app-deck-summary
-        [groupedCards]="groupedCards$ | async"
+        [groupedCards]="(groupedCards$ | async)!"
         (removeCard)="onRemoveCard($event)">
       </app-deck-summary>
     </div>
@@ -22,15 +22,15 @@
     <div class="card-search-panel">
       <!-- Card search filters -->
       <app-card-search-filter
-        [currentFilters]="cardFilters$ | async"
+        [currentFilters]="(cardFilters$ | async)!"
         (filtersChanged)="onFiltersChanged($event)">
       </app-card-search-filter>
 
       <!-- Card search results table -->
       <app-card-table
-        [cards]="cards$ | async"
-        [pagination]="cardListPagination$ | async"
-        [isLoading]="cardListLoading$ | async"
+        [cards]="(cards$ | async) ?? []"
+        [pagination]="(cardListPagination$ | async)!"
+        [isLoading]="(cardListLoading$ | async) ?? false"
         (pageChanged)="onPageChanged($event)"
         (sortChanged)="onSortChanged($event)"
         (addCard)="onAddCard($event)">
