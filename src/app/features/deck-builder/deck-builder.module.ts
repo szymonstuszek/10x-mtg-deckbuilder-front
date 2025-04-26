@@ -30,9 +30,8 @@ import { DeckHeaderComponent } from './components/deck-header/deck-header.compon
 import { DeckSummaryComponent } from './components/deck-summary/deck-summary.component';
 import { CardSearchFilterComponent } from './components/card-search-filter/card-search-filter.component';
 import { CardTableComponent } from './components/card-table/card-table.component';
-// The following components will be created in future steps:
-// import { CardGroupComponent } from './components/card-group/card-group.component';
-// import { CardItemComponent } from './components/card-item/card-item.component';
+import { CardGroupComponent } from './components/card-group/card-group.component';
+import { CardItemComponent } from './components/card-item/card-item.component';
 import { CardImagePopoverDirective } from './directives/card-image-popover.directive';
 
 // Reducers and Effects
@@ -63,9 +62,8 @@ const routes: Routes = [
     DeckSummaryComponent,
     CardSearchFilterComponent,
     CardTableComponent,
-    // The following components will be declared once implemented:
-    // CardGroupComponent,
-    // CardItemComponent,
+    CardGroupComponent,
+    CardItemComponent,
     CardImagePopoverDirective
   ],
   imports: [

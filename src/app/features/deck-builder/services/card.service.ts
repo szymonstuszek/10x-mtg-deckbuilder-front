@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CardFilters, CardListResponseDto, PaginationState, SortState } from '../models/deck.models';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
+import { MockDataService } from './mock-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
   private apiUrl = environment.apiUrl;
+  private useMockData = !environment.production; // Use mock data in development
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private mockDataService: MockDataService
+  ) { }
 
   /**
    * Get a list of cards based on filters, pagination, and sorting
@@ -23,6 +28,12 @@ export class CardService {
     pagination: PaginationState,
     sort: SortState
   ): Observable<CardListResponseDto> {
+    // Use mock data in development
+    if (this.useMockData) {
+      console.log('Using mock card data');
+      return of(this.mockDataService.getMockCards(pagination.pageIndex, pagination.pageSize));
+    }
+
     // Convert 0-based pageIndex to 1-based page for API
     const page = pagination.pageIndex + 1;
     const pageSize = pagination.pageSize;

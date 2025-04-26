@@ -1,0 +1,58 @@
+.card-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    
+    .remove-card-button {
+      opacity: 1;
+    }
+  }
+}
+
+.card-item-quantity {
+  width: 30px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.card-item-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-item-name {
+  font-size: 14px;
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.card-item-mana {
+  margin-left: 8px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+}
+
+.remove-card-button {
+  opacity: 0.3;
+  transition: opacity 0.2s;
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+} 

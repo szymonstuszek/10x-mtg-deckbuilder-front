@@ -1,0 +1,13 @@
+<div class="card-group">
+  <div class="card-group-header">
+    <h3>{{ groupName }} ({{ groupCount }})</h3>
+  </div>
+
+  <div class="card-list">
+    <app-card-item 
+      *ngFor="let deckCard of cards" 
+      [deckCard]="deckCard"
+      (removeClicked)="onCardRemove($event)">
+    </app-card-item>
+  </div>
+</div> 

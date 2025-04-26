@@ -1,0 +1,19 @@
+<div class="card-item">
+  <div class="card-item-quantity">{{ deckCard.quantity }}x</div>
+  <div class="card-item-info">
+    <div class="card-item-name" appCardImagePopover [card]="deckCard.card">
+      {{ deckCard.card.name }}
+    </div>
+    <div class="card-item-mana" *ngIf="deckCard.card.manaCost">
+      {{ deckCard.card.manaCost }}
+    </div>
+  </div>
+  <button 
+    mat-icon-button 
+    color="warn" 
+    class="remove-card-button"
+    (click)="onRemove()"
+    matTooltip="Remove card">
+    <mat-icon>remove_circle</mat-icon>
+  </button>
+</div> 

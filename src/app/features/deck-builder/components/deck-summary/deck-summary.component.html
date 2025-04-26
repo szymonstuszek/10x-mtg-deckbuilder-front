@@ -12,34 +12,13 @@
   <ng-container *ngIf="getTotalCardCount() > 0">
     <div class="card-groups">
       <!-- Iterate through card groups -->
-      <div class="card-group" *ngFor="let group of getOrderedCardGroups()">
-        <div class="card-group-header">
-          <h3>{{ group.name }} ({{ group.count }})</h3>
-        </div>
-
-        <!-- Cards in the group -->
-        <div class="card-list">
-          <div class="card-item" *ngFor="let deckCard of group.cards">
-            <div class="card-item-quantity">{{ deckCard.quantity }}x</div>
-            <div class="card-item-info">
-              <div class="card-item-name" appCardImagePopover [card]="deckCard.card">
-                {{ deckCard.card.name }}
-              </div>
-              <div class="card-item-mana" *ngIf="deckCard.card.manaCost">
-                {{ deckCard.card.manaCost }}
-              </div>
-            </div>
-            <button 
-              mat-icon-button 
-              color="warn" 
-              class="remove-card-button"
-              (click)="onRemoveCard(deckCard.card)"
-              matTooltip="Remove card">
-              <mat-icon>remove_circle</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-card-group 
+        *ngFor="let group of getOrderedCardGroups()" 
+        [groupName]="group.name"
+        [groupCount]="group.count"
+        [cards]="group.cards"
+        (removeCard)="onRemoveCard($event)">
+      </app-card-group>
     </div>
   </ng-container>
 </div> 
