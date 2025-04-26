@@ -84,18 +84,19 @@ Players of Magic: The Gathering often struggle with manually recording deck list
 
 US-001  
 Title: View Card Library  
-Description: As a casual player, I want to view a paginated list of Mtg cards filtered by expansion so that I can quickly access available cards for deck building.  
-Acceptance Criteria:
-- The card library is presented in a table with 50 cards per page.
-- I can choose an expansion that I want to display in the table.
-- Sorting is enabled through clickable column headers.
-- Cards are filtered based on selected criteria (e.g., card type, mana cost, rarity).
+Description: As a user, I want to display mtg cards in a table, that displays their details and I want to have a search panel that will allow me to load data into the table based on criteria such as deck expansion
 
-US-002  
-Title: View Card Details  
-Description: As a user, I want to click on a card to view its full details (name, mana cost, image, description, etc.) so that I can make informed deck-building decisions.  
+US-002: Deck Building and Editing
+Title: Build and Modify Deck
+Description: As a user, I want to build and edit my deck on a dedicated deck builder screen that allows me to update the deck name, select the deck format, and view the current deck details.
 Acceptance Criteria:
-- A detailed view of the card is displayed upon selection.
+The top section displays an editable deck name that only updates when the user clicks the "Save" button, with confirmation feedback after a successful save.
+A deck format dropdown is presented showing "Standard" as the active option with additional options like "Modern" and "Pauper" visible but disabled.
+A validity indicator (badge with tooltip) displays deck validation status (for example, ensuring a minimum card count and copy limits).
+The deck summary shows the total number of cards and groups cards by type (e.g., Creature, Land, Artifact, Instant, Sorcery, Enchantment).
+Each group header is in a larger font and shows the total count for that group.
+Within each group, cards are listed with their name, mana cost, quantity, and a removal option.
+When a user hovers over a card name, a popover appears displaying only the card image.
 
 US-003  
 Title: Add Cards to Deck  
@@ -119,16 +120,36 @@ Acceptance Criteria:
 - Cards are removed with a single, immediate action.
 - Deck validation updates instantly after removal.
 
-US-006  
-Title: Save and View Decklists  
-Description: As a user, I want to save my deck and view a summary of my saved decks, including details such as deck name, card count, card types, and mana curve, so that I can manage my decks over time.  
+US-006: Viewing and Managing Saved Decks
+Title: Decks Overview and Management
+Description: As a user, I want to view my saved decks in a dedicated decks screen where each deck is displayed in a grid/card layout, allowing me to edit or delete decks easily.
 Acceptance Criteria:
-- Users can save and retrieve decklists.
-- A summary view presents all relevant deck statistics.
+The decks screen displays saved decks using Angular Material cards in a grid layout.
+Each deck card shows the deck name and a representative card image.
+Each deck card includes buttons for editing and deleting the deck.
+Deletion actions prompt a confirmation dialog before removing a deck.
+When a deck is selected, the user is navigated back to the deck builder screen with the selected deck’s details loaded.
 
-US-007  
-Title: Secure Access (Future Enhancement)  
-Description: As a user, I want to log in securely to access my saved decks so that my personal data is protected.  
+US-007: Deck Persistence and Navigation
+Title: Maintain In-Progress Deck Data
+Description: As a user, I want my current deck data (selected cards, deck name, deck format, and card groupings) to be preserved while navigating between the deck builder and the decks screen so that I can resume editing without losing my progress.
 Acceptance Criteria:
-- Placeholder functionality for user authentication is defined.
-- Future iterations will implement a robust secure login system.
+The deck data is managed using ngrx to persist the current state in the UI.
+Changes made in the deck builder are only saved to the database when the user explicitly clicks the “Save” button.
+Navigating away from the deck builder does not lose the in-progress deck data.
+
+US-008: Navigation and Global Features
+Title: Navigation and Error Handling
+Description: As a user, I want a consistent navigation experience across the application and clear, differentiated error messages so that I can easily switch between features and understand any issues that arise.
+Acceptance Criteria:
+On desktop, a top navigation bar displays “Home (Deck Builder)” and “Decks” on the left, with “Account” on the right.
+On mobile, a hamburger menu lists “Home”, “Decks”, “Account”, and “Logout” (as a placeholder) in that order.
+A global error handling service uses Angular Material’s toast/snackbar to display differentiated error messages for various API exceptions.
+
+US-009: Authentication and Account Access
+Title: User Login and Registration
+Description: As a new or returning user, I want to log in or register using a simple form that validates my inputs (username, password, and email) so that I can access my account and deck management features.
+Acceptance Criteria:
+  - Login screen includes fields for username and password with validation errors if the username is less than 8 characters or the password is less than 10 characters (including digits and special symbols).
+  - Registration screen includes fields for email (valid email), username, and password with the same validations.
+  - Forgot Password screen accepts a valid email address.
