@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 import * as DeckActions from './deck.actions';
 import { DeckService } from '../../services/deck.service';
-import { CreateDeckRequestDto, DeckCardRequestDto, UpdateDeckRequestDto } from '../../models/deck.models';
+import { Card, CreateDeckRequestDto, DeckCardRequestDto, UpdateDeckRequestDto } from '../../models/deck.models';
 import { selectDeckState } from './deck.selectors';
 
 @Injectable()
@@ -41,10 +41,13 @@ export class DeckEffects {
     withLatestFrom(this.store.select(selectDeckState)),
     switchMap(([_, deck]) => {
       // Prepare the cards DTO
+      // todo review: made createDeckCards to match the backend type
       const cards: DeckCardRequestDto[] = deck.cards.map(deckCard => ({
         quantity: deckCard.quantity,
         card: deckCard.card
       }));
+
+      const createDeckCards: Card[] = deck.cards.map(deckCard => deckCard.card);
       
       // If deck has an ID, update it; otherwise create a new deck
       if (deck.id !== null) {
@@ -74,9 +77,9 @@ export class DeckEffects {
           deckName: deck.name,
           deckFormat: deck.format,
           deckDescription: deck.description,
-          cards
+          cards: createDeckCards
         };
-        
+
         return this.deckService.createDeck(createDto).pipe(
           map(response => {
             this.snackBar.open('Deck created successfully', 'Close', {

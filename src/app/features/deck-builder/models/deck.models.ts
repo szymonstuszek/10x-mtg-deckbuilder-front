@@ -97,11 +97,12 @@ export interface DeckCardRequestDto {
 }
 
 // Payload for POST /decks
+// todo review
 export interface CreateDeckRequestDto {
   deckName: string;
   deckFormat: string; // "Standard" initially
   deckDescription: string | null;
-  cards: DeckCardRequestDto[];
+  cards: Card[];
 }
 
 // Payload for PUT /decks/{deckId}

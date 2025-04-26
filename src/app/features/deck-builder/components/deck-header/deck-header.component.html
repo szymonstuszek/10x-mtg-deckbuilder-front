@@ -28,7 +28,7 @@
         mat-raised-button 
         color="primary" 
         (click)="onSave()" 
-        [disabled]="isSaving || !(validity?.isValid)"
+        [disabled]="isSaving"
       >
         <mat-icon>save</mat-icon>
         {{ isSaving ? 'Saving...' : 'Save' }}

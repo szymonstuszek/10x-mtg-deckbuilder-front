@@ -10,7 +10,8 @@ import { MockDataService } from './mock-data.service';
 })
 export class DeckService {
   private apiUrl = environment.apiUrl;
-  private useMockData = !environment.production; // Use mock data in development
+  // todo revert - testing
+  private useMockData = environment.production; // Use mock data in development
 
   constructor(
     private http: HttpClient,
@@ -67,6 +68,7 @@ export class DeckService {
   createDeck(deck: CreateDeckRequestDto): Observable<DeckDto> {
     if (this.useMockData) {
       console.log('Mock creating new deck');
+      // todo we might let the backend generate the id
       return of({
         id: Math.floor(Math.random() * 1000) + 10, // Generate a random ID
         deckName: deck.deckName,
