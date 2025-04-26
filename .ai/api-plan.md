@@ -261,7 +261,7 @@
    - Error Codes: 401 Unauthorized, 404 Not Found
 
 7. **GET /decks/{deckId}/random**
-    - Description: Retrieve a random non-land card from the deck, useful for deck preview.
+    - Description: Retrieve a random non-land card from the deck, useful for deck preview, to display an image on the cover of the deck.
     - HTTP Method: GET
     - URL Path: `/decks/{deckId}/random`
     - JSON Response Payload Structure:
