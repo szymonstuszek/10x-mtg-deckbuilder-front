@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 // Store imports
 import { StoreModule } from '@ngrx/store';
@@ -24,14 +25,14 @@ import { EffectsModule } from '@ngrx/effects';
 
 // Component imports
 import { DeckBuilderViewComponent } from './components/deck-builder-view/deck-builder-view.component';
+import { DeckHeaderComponent } from './components/deck-header/deck-header.component';
+import { DeckSummaryComponent } from './components/deck-summary/deck-summary.component';
 // The following components will be created in future steps:
-// import { DeckHeaderComponent } from './components/deck-header/deck-header.component';
-// import { DeckSummaryComponent } from './components/deck-summary/deck-summary.component';
 // import { CardGroupComponent } from './components/card-group/card-group.component';
 // import { CardItemComponent } from './components/card-item/card-item.component';
 // import { CardSearchFilterComponent } from './components/card-search-filter/card-search-filter.component';
 // import { CardTableComponent } from './components/card-table/card-table.component';
-// import { CardImagePopoverDirective } from './directives/card-image-popover.directive';
+import { CardImagePopoverDirective } from './directives/card-image-popover.directive';
 
 // Reducers and Effects
 import { deckReducer } from './store/deck/deck.reducer';
@@ -57,20 +58,21 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DeckBuilderViewComponent,
+    DeckHeaderComponent,
+    DeckSummaryComponent,
     // The following components will be declared once implemented:
-    // DeckHeaderComponent,
-    // DeckSummaryComponent,
     // CardGroupComponent,
     // CardItemComponent,
     // CardSearchFilterComponent,
     // CardTableComponent,
-    // CardImagePopoverDirective
+    CardImagePopoverDirective
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     HttpClientModule,
+    OverlayModule,
     
     // Material modules
     MatButtonModule,

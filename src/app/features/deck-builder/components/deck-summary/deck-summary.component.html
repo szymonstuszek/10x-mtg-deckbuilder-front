@@ -1,0 +1,45 @@
+<div class="deck-summary">
+  <div class="deck-summary-header">
+    <h2>Deck Summary</h2>
+    <div class="total-counter">{{ getTotalCardCount() }} cards</div>
+  </div>
+
+  <div class="empty-state" *ngIf="getTotalCardCount() === 0">
+    <mat-icon>dashboard_customize</mat-icon>
+    <p>Your deck is empty. Add some cards from the search results.</p>
+  </div>
+
+  <ng-container *ngIf="getTotalCardCount() > 0">
+    <div class="card-groups">
+      <!-- Iterate through card groups -->
+      <div class="card-group" *ngFor="let group of getOrderedCardGroups()">
+        <div class="card-group-header">
+          <h3>{{ group.name }} ({{ group.count }})</h3>
+        </div>
+
+        <!-- Cards in the group -->
+        <div class="card-list">
+          <div class="card-item" *ngFor="let deckCard of group.cards">
+            <div class="card-item-quantity">{{ deckCard.quantity }}x</div>
+            <div class="card-item-info">
+              <div class="card-item-name" appCardImagePopover [card]="deckCard.card">
+                {{ deckCard.card.name }}
+              </div>
+              <div class="card-item-mana" *ngIf="deckCard.card.manaCost">
+                {{ deckCard.card.manaCost }}
+              </div>
+            </div>
+            <button 
+              mat-icon-button 
+              color="warn" 
+              class="remove-card-button"
+              (click)="onRemoveCard(deckCard.card)"
+              matTooltip="Remove card">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div> 

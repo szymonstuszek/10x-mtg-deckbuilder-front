@@ -42,19 +42,20 @@ export class DeckEffects {
       }));
       
       // If deck has an ID, update it; otherwise create a new deck
-      if (deck.id) {
+      if (deck.id !== null) {
+        const deckId = deck.id; // Create a local variable that TypeScript can infer as number
         const updateDto: UpdateDeckRequestDto = {
           deckName: deck.name,
           deckDescription: deck.description,
           cards
         };
         
-        return this.deckService.updateDeck(deck.id, updateDto).pipe(
+        return this.deckService.updateDeck(deckId, updateDto).pipe(
           map(() => {
             this.snackBar.open('Deck updated successfully', 'Close', {
               duration: 3000
             });
-            return DeckActions.saveDeckSuccess({ id: deck.id });
+            return DeckActions.saveDeckSuccess({ id: deckId });
           }),
           catchError(error => {
             this.snackBar.open(`Error saving deck: ${error.message}`, 'Close', {

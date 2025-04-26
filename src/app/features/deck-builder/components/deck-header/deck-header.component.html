@@ -1,0 +1,43 @@
+<div class="deck-header">
+  <div class="deck-header-content">
+    <!-- Left side: Deck name and format -->
+    <div class="deck-header-info">
+      <mat-form-field appearance="outline">
+        <mat-label>Deck Name</mat-label>
+        <input matInput [formControl]="deckNameControl" placeholder="Enter deck name">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="format-select">
+        <mat-label>Format</mat-label>
+        <mat-select [value]="metadata?.format || 'Standard'" [disabled]="true">
+          <mat-option *ngFor="let option of formatOptions" [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <!-- Validity badge -->
+      <div class="validity-badge" [matTooltip]="getValidityTooltip()">
+        <mat-icon [style.color]="getValidityColor()">{{ getValidityIcon() }}</mat-icon>
+      </div>
+    </div>
+    
+    <!-- Right side: Actions -->
+    <div class="deck-header-actions">
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="onSave()" 
+        [disabled]="isSaving || !(validity?.isValid)"
+      >
+        <mat-icon>save</mat-icon>
+        {{ isSaving ? 'Saving...' : 'Save' }}
+      </button>
+      
+      <button mat-button (click)="onNew()">
+        <mat-icon>add</mat-icon>
+        New Deck
+      </button>
+    </div>
+  </div>
+</div> 
