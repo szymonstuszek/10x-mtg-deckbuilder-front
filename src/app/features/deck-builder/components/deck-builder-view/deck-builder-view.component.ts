@@ -26,7 +26,8 @@ import {
 @Component({
   selector: 'app-deck-builder-view',
   templateUrl: './deck-builder-view.component.html',
-  styleUrls: ['./deck-builder-view.component.scss']
+  styleUrls: ['./deck-builder-view.component.scss'],
+  standalone: false
 })
 export class DeckBuilderViewComponent implements OnInit, OnDestroy {
   // Card list observables

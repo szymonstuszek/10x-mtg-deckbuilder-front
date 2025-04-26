@@ -4,7 +4,8 @@ import { Card, DeckCard } from '../../models/deck.models';
 @Component({
   selector: 'app-deck-summary',
   templateUrl: './deck-summary.component.html',
-  styleUrls: ['./deck-summary.component.scss']
+  styleUrls: ['./deck-summary.component.scss'],
+  standalone: false
 })
 export class DeckSummaryComponent {
   @Input() groupedCards?: Map<string, DeckCard[]>;

@@ -5,7 +5,8 @@ import { DeckMetadata, DeckValidity } from '../../models/deck.models';
 @Component({
   selector: 'app-deck-header',
   templateUrl: './deck-header.component.html',
-  styleUrls: ['./deck-header.component.scss']
+  styleUrls: ['./deck-header.component.scss'],
+  standalone: false
 })
 export class DeckHeaderComponent implements OnInit, OnChanges {
   @Input() metadata?: DeckMetadata;

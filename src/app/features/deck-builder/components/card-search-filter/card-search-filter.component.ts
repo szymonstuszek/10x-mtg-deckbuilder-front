@@ -7,7 +7,8 @@ import { CardFilters } from '../../models/deck.models';
 @Component({
   selector: 'app-card-search-filter',
   templateUrl: './card-search-filter.component.html',
-  styleUrls: ['./card-search-filter.component.scss']
+  styleUrls: ['./card-search-filter.component.scss'],
+  standalone: false
 })
 export class CardSearchFilterComponent implements OnInit, OnChanges, OnDestroy {
   @Input() currentFilters?: CardFilters;

@@ -4,9 +4,9 @@ import { AppModule } from './app.module';
 
 @Component({
   selector: 'app-root',
-  imports: [],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  standalone: false
 })
 export class AppComponent {
   title = 'dev10x-mtg-deckbuilder';

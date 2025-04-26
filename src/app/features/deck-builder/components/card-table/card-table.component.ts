@@ -7,7 +7,8 @@ import { Card, PaginationState } from '../../models/deck.models';
 @Component({
   selector: 'app-card-table',
   templateUrl: './card-table.component.html',
-  styleUrls: ['./card-table.component.scss']
+  styleUrls: ['./card-table.component.scss'],
+  standalone: false
 })
 export class CardTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() cards: Card[] = [];

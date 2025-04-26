@@ -5,7 +5,8 @@ import { Card } from '../models/deck.models';
 import { Subject } from 'rxjs';
 
 @Directive({
-  selector: '[appCardImagePopover]'
+  selector: '[appCardImagePopover]',
+  standalone: false
 })
 export class CardImagePopoverDirective implements OnDestroy {
   @Input('appCardImagePopover') card!: Card;

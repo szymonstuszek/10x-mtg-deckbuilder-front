@@ -4,7 +4,8 @@ import { Card, DeckCard } from '../../models/deck.models';
 @Component({
   selector: 'app-card-group',
   templateUrl: './card-group.component.html',
-  styleUrls: ['./card-group.component.scss']
+  styleUrls: ['./card-group.component.scss'],
+  standalone: false
 })
 export class CardGroupComponent {
   @Input() groupName: string = '';
