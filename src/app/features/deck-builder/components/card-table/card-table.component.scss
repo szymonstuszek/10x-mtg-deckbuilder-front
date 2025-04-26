@@ -1,0 +1,116 @@
+.card-table-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .results-count {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+  }
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 4px;
+  background-color: white;
+  
+  table {
+    width: 100%;
+  }
+  
+  th.mat-header-cell {
+    background-color: #f5f5f5;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.card-name {
+  font-weight: 500;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.mana-cost {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  
+  &.white {
+    background-color: #f8f6d8;
+    border: 1px solid #e5e0bb;
+  }
+  
+  &.blue {
+    background-color: #c1d7e9;
+    border: 1px solid #9fbdda;
+  }
+  
+  &.black {
+    background-color: #b3afb4;
+    border: 1px solid #827e84;
+  }
+  
+  &.red {
+    background-color: #e49977;
+    border: 1px solid #d57756;
+  }
+  
+  &.green {
+    background-color: #a3c095;
+    border: 1px solid #7eab6f;
+  }
+  
+  &.colorless {
+    background-color: #d5d5d5;
+    border: 1px solid #b5b5b5;
+  }
+  
+  &.multicolor {
+    background: linear-gradient(135deg, #f8f6d8, #c1d7e9, #b3afb4, #e49977, #a3c095);
+    border: 1px solid #ccc;
+  }
+}
+
+.no-data {
+  padding: 16px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+} 

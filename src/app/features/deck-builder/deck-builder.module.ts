@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
@@ -27,11 +28,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { DeckBuilderViewComponent } from './components/deck-builder-view/deck-builder-view.component';
 import { DeckHeaderComponent } from './components/deck-header/deck-header.component';
 import { DeckSummaryComponent } from './components/deck-summary/deck-summary.component';
+import { CardSearchFilterComponent } from './components/card-search-filter/card-search-filter.component';
+import { CardTableComponent } from './components/card-table/card-table.component';
 // The following components will be created in future steps:
 // import { CardGroupComponent } from './components/card-group/card-group.component';
 // import { CardItemComponent } from './components/card-item/card-item.component';
-// import { CardSearchFilterComponent } from './components/card-search-filter/card-search-filter.component';
-// import { CardTableComponent } from './components/card-table/card-table.component';
 import { CardImagePopoverDirective } from './directives/card-image-popover.directive';
 
 // Reducers and Effects
@@ -60,11 +61,11 @@ const routes: Routes = [
     DeckBuilderViewComponent,
     DeckHeaderComponent,
     DeckSummaryComponent,
+    CardSearchFilterComponent,
+    CardTableComponent,
     // The following components will be declared once implemented:
     // CardGroupComponent,
     // CardItemComponent,
-    // CardSearchFilterComponent,
-    // CardTableComponent,
     CardImagePopoverDirective
   ],
   imports: [
@@ -82,6 +83,7 @@ const routes: Routes = [
     MatIconModule,
     MatInputModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule,
     MatSortModule,

@@ -1,0 +1,70 @@
+<div class="card-search-filter">
+  <div class="filter-header">
+    <h2>Search Cards</h2>
+    <button mat-button color="primary" (click)="resetFilters()">
+      <mat-icon>refresh</mat-icon>
+      Reset Filters
+    </button>
+  </div>
+  
+  <form [formGroup]="filterForm" class="filter-form">
+    <!-- Card Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Card Name</mat-label>
+      <input matInput formControlName="name" placeholder="Search by name...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    
+    <div class="filter-row">
+      <!-- Set -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Set</mat-label>
+        <mat-select formControlName="set">
+          <mat-option [value]="null">All Sets</mat-option>
+          <mat-option *ngFor="let set of setOptions" [value]="set.value">
+            {{ set.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <!-- Rarity -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Rarity</mat-label>
+        <mat-select formControlName="rarity" multiple>
+          <mat-option *ngFor="let rarity of rarityOptions" [value]="rarity.value">
+            {{ rarity.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="filter-row">
+      <!-- Color -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Color</mat-label>
+        <mat-select formControlName="color" multiple>
+          <mat-option *ngFor="let color of colorOptions" [value]="color.value">
+            {{ color.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <!-- Type -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type" multiple>
+          <mat-option *ngFor="let type of typeOptions" [value]="type.value">
+            {{ type.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <!-- Mana Cost -->
+    <mat-form-field appearance="outline" class="mana-cost-field">
+      <mat-label>Mana Value</mat-label>
+      <input matInput type="number" min="0" max="20" formControlName="manaCost" placeholder="Any">
+      <mat-hint>Enter a specific mana value</mat-hint>
+    </mat-form-field>
+  </form>
+</div> 

@@ -1,0 +1,92 @@
+<div class="card-table-container">
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div class="results-header">
+    <h3>Search Results</h3>
+    <div class="results-count" *ngIf="pagination">
+      {{ pagination.totalItems }} cards found
+    </div>
+  </div>
+
+  <!-- Card Table -->
+  <div class="table-container mat-elevation-z1">
+    <table mat-table [dataSource]="dataSource" matSort>
+      
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let card"> 
+          <div class="card-name" appCardImagePopover [card]="card">{{ card.name }}</div>
+        </td>
+      </ng-container>
+      
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+        <td mat-cell *matCellDef="let card"> {{ card.type }} </td>
+      </ng-container>
+      
+      <!-- Set Column -->
+      <ng-container matColumnDef="set">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Set </th>
+        <td mat-cell *matCellDef="let card"> {{ card.setName }} </td>
+      </ng-container>
+      
+      <!-- Rarity Column -->
+      <ng-container matColumnDef="rarity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rarity </th>
+        <td mat-cell *matCellDef="let card"> {{ card.rarity }} </td>
+      </ng-container>
+      
+      <!-- Mana Cost Column -->
+      <ng-container matColumnDef="manaCost">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mana </th>
+        <td mat-cell *matCellDef="let card"> 
+          <div class="mana-cost">
+            <span [ngClass]="getColorClass(card.colors)" class="color-indicator"></span>
+            {{ card.manaCost || card.cmc }}
+          </div>
+        </td>
+      </ng-container>
+      
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let card"> 
+          <button 
+            mat-icon-button 
+            color="primary" 
+            (click)="onAddCard(card)" 
+            matTooltip="Add to deck">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      <!-- No Data Placeholder -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+          No cards found matching the current filters
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <!-- Paginator -->
+  <mat-paginator
+    *ngIf="pagination"
+    [pageIndex]="pagination.pageIndex"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [length]="pagination.totalItems"
+    (page)="onPageChanged($event)"
+    showFirstLastButtons>
+  </mat-paginator>
+</div> 

@@ -1,9 +1,8 @@
 import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { DomPortal } from '@angular/cdk/portal';
 import { Card } from '../models/deck.models';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[appCardImagePopover]'
@@ -59,23 +58,24 @@ export class CardImagePopoverDirective implements OnDestroy {
     
     // Create the popover content
     if (this.overlayRef && !this.overlayRef.hasAttached()) {
+      // Create container element
+      const popoverContainer = document.createElement('div');
+      popoverContainer.style.padding = '8px';
+      
       // Create image element
-      const image = this.renderer.createElement('img');
-      this.renderer.setAttribute(image, 'src', this.card.imageUrl || '');
-      this.renderer.setStyle(image, 'border-radius', '12px');
-      this.renderer.setStyle(image, 'box-shadow', '0 4px 8px rgba(0, 0, 0, 0.2)');
-      this.renderer.setStyle(image, 'max-width', '240px');
-      this.renderer.setStyle(image, 'height', 'auto');
+      const imageElement = document.createElement('img');
+      imageElement.src = this.card.imageUrl || '';
+      imageElement.style.borderRadius = '12px';
+      imageElement.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+      imageElement.style.maxWidth = '240px';
+      imageElement.style.height = 'auto';
       
-      // Create container
-      const container = this.renderer.createElement('div');
-      this.renderer.setStyle(container, 'padding', '8px');
-      this.renderer.appendChild(container, image);
+      // Add image to container
+      popoverContainer.appendChild(imageElement);
       
-      // Attach content to overlay
-      this.overlayRef.attach(new ComponentPortal(null, null, {
-        $implicit: container
-      }));
+      // Create portal and attach to overlay
+      const portal = new DomPortal(popoverContainer);
+      this.overlayRef.attach(portal);
     }
   }
   
