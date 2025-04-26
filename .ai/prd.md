@@ -1,16 +1,32 @@
 # Product Requirements Document (PRD) - mtg-deck-builder
 
 ## 1. Product Overview
-The 10x-mtg-deck-builder application is designed to provide Magic: The Gathering players with a digital platform to efficiently build and manage their decks. The app aims to eliminate the inefficiencies of traditional paper-based deck tracking by offering a dynamic, responsive interface powered by Angular and Angular Material. This tool is intended primarily for casual players who require a simple, real-time deck-building experience, allowing rapid access to card information and streamlined deck composition.
+The 10x-mtg-deck-builder application is designed to provide Magic: The Gathering players with a digital platform to efficiently build and manage their decks. The app eliminates the inefficiencies of traditional paper-based deck tracking by offering a dynamic, responsive interface built with Angular and Angular Material. This tool is intended primarily for casual players who require a simple, real-time deck-building experience with rapid access to card information and streamlined deck composition and management.
 
 ## 2. User Problem
-Players of Magic: The Gathering often face the tedious task of manually recording deck lists, which is time-consuming and prone to errors. The core user problem is the inconvenience of managing multiple decks on paper. Users need an efficient, digital solution that:
+Players of Magic: The Gathering often struggle with manually recording deck lists, which is time-consuming and prone to errors. Users need an efficient, digital solution that:
 - Provides quick access to a comprehensive library of cards across various expansions.
-- Allows easy filtering and sorting of cards by various criteria (e.g., expansion, rarity, mana cost, color, card type).
-- Offers instant feedback on deck composition to ensure compliance with game rules.
+- Enables easy filtering, sorting, and search for cards by criteria such as expansion, rarity, mana cost, color, and card type.
+- Delivers an intuitive deck-building experience with real-time validation to ensure compliance with game rules.
+- Facilitates effective management of multiple decks with secure, user-specific access.
 
 ## 3. Functional Requirements
-1. **Card Display and Navigation**
+
+### 3.1 Deck Builder (Home) Screen
+- **Overview:**
+  - The screen is divided into two main sections:
+    - **Top Section:** Displays current deck details.
+    - **Bottom Section:** A table of available MTG cards that can be added to the current deck.
+
+- **Top Section Details:**
+  - **Editable Deck Name:** The deck name is editable and is updated only when the 'Save' button is clicked. After saving, a confirmation message is displayed.
+  - **Deck Format Dropdown:** Displays 'Standard' as the active option, with additional options like 'Modern' and 'Pauper' shown as disabled (read-only for now).
+  - **Validity Indicator:** A visual badge or icon indicates whether the deck meets validation criteria (e.g., minimum card count and copy limits). Hovering over the badge shows validation messages.
+  - **Deck Summary:** Displays the total number of cards in the deck and lists selected cards grouped by card type (e.g., Creature, Land, Artifact, Instant, Sorcery, Enchantment). Each group header uses a larger font and includes the total count for that group. Individual cards are listed with their name, mana cost, and quantity, alongside an option to remove them.
+  - **Card Hover Popover:** When a user hovers over a card name, a popover displays the card's image.
+  - **Action Buttons:** Includes a 'Save' button (to commit changes to the database) and a 'New' button (to start a new deck).
+
+  - ** Bottom Section Details **
    - Display Mtg cards in a paginated table with 50 cards per page.
    - Enable sorting by clicking on table column headers.
    - Provide an option to display cards from a specific set in the table.
@@ -19,54 +35,50 @@ Players of Magic: The Gathering often face the tedious task of manually recordin
    - On selection, display full card details including name, mana cost, image, and description, consider that some cards are double-side: they have a front and back.
    - there is an option in the table to add the selected card to the current deck
 
-2. **Deck Building**
-   - Implement a two-panel interface:
-     - Top panel: Deck-building table displaying the current deck.
-        - sections informing about the current number of cards
-        - button that will navigate to a view with the deck details
-        - dropdown with the deck format: as a starting point, there will be only 1 option: Standard
-     - Bottom panel: Card selection table showing available cards.
-   - Allow immediate addition of cards from the selection table to the deck.
-   - Support instantaneous card removal from the deck.
-   - Enforce deck validation rules in real time:
-     - A standard deck must contain a minimum of 60 cards.
-     - No more than 4 copies of any non-land card are allowed.
-     - Validation rules should be generic - future versions of the application might support other formats, which would have different rules.
-   - Provide visual validation feedback.
+### 3.2 Decks Screen
+- Displays the user's saved decks in a grid layout using card components.
+- Each deck card shows:
+  - The deck name.
+  - A representative card image from the deck.
+  - Buttons for editing and deleting the deck (deletion actions require a confirmation dialog).
 
-3. **Deck Details**
-   - Separate screen displaying a table with the list of cards from the deck
-   - Shows details about the decks:
-     - number of cards of different types: creatures, sorceries, instants etc
-     - mana curve of the deck: listing of cards of 1 mana cost, 2 mana cost, etc. include information about the colors
+### 3.3 Authentication and Account Management
+- **Login Screen:**
+  - Fields: Username and Password.
+  - Validations: Username must be at least 8 characters; Password must be at least 10 characters and include digits and special symbols.
+- **Registration Screen:**
+  - Fields: Email, Username, and Password.
+  - Validations: Email must be valid; Username and Password follow the same rules as the Login screen.
+- **Forgot Password Screen:**
+  - Field: Email.
 
-4. **Deck Management**
-   - Offer functionality to save decklists.
-   - Display saved decks along with deck statistics such as the number of cards, card types, mana curve, deck name, and visual indicators of deck colors.
-   - Include a feature to show a random non-land card from the deck, when displaying the decklists.
+### 3.4 Global Features
+- **Navigation:**
+  - **Desktop:** A top navigation bar with 'Home (Deck Builder)' and 'Decks' on the left, and 'Account' on the right.
+  - **Mobile:** A hamburger menu listing 'Home', 'Decks', 'Account', and 'Logout' (placeholder) in that order.
+- **State Management:**
+  - Use ngrx to manage and persist current deck data (including selected cards, deck name, format, and groupings) across navigation. The deck data is preserved in the UI state until the user explicitly saves it.
+- **Error Handling:**
+  - Implement a global error handling service that displays differentiated error messages via Angular Material's toast/snackbar for various API exceptions.
+- **Responsive Design:**
+  - Design distinct layouts for desktop and mobile views using Angular Material's responsive components and Angular Flex Layout to ensure optimal usability across devices.
+- **Future Enhancements:**
+  - Expand deck format options beyond 'Standard'.
+  - Integrate advanced authentication features using Amazon Cognito and additional security enhancements as needed.
 
-5. **Responsiveness**
-   - Ensure the application displays optimally on both computer screens and mobile devices.
 
-6. **Basic security features**.**
-   - User registration and authentication.
-   - Users can only manage their own decklists, they can not see decklists of other users.
-
-7. **Data persitance**
-   - Decks that users save should be persisted in a database.
-
-## 4. Product Boundaries
+## 5. Product Boundaries
 - **Inclusions (MVP):**
-  - Core functionalities: card display with filtering, deck building with real-time validation, and decklist management.
-  - UI components and interactions based on Angular.
-  - Backend part of the project will use Spring Boot.
-  - Responsive layout for desktop and mobile devices.
+  - Core functionalities: card display with filtering, deck building with real-time validations, deck management, and basic account authentication.
+  - A responsive UI built with Angular and Angular Material, with integration to a Spring Boot backend and external MTG card APIs.
 - **Exclusions (MVP):**
   - Algorithms to suggest additional cards.
   - Display of card prices.
   - Functionality to take and save pictures of decks.
   - Suggestions for similar decks or tournament performance analytics.
   - Full implementation of authentication and data persistence (only placeholder considerations are included).
+  - Advanced authentication and detailed data persistence features beyond initial deployment.
+  - Additional analytics, offline capabilities, or collaborative deck editing features.
 
 ## 5. User Stories
 
@@ -120,7 +132,3 @@ Description: As a user, I want to log in securely to access my saved decks so th
 Acceptance Criteria:
 - Placeholder functionality for user authentication is defined.
 - Future iterations will implement a robust secure login system.
-
-## 6. Success Metrics
-1. At least one user successfully saves a valid deck.
-2. Real-time deck validation functions correctly, updating immediately upon any modification.
