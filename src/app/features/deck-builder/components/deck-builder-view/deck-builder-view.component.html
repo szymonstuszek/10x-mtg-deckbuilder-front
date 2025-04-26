@@ -1,0 +1,40 @@
+<div class="deck-builder-container">
+  <!-- Header with deck name, format, validity, and actions -->
+  <app-deck-header
+    [metadata]="deckMetadata$ | async"
+    [validity]="deckValidity$ | async"
+    [isSaving]="deckIsSaving$ | async"
+    (deckNameChanged)="onDeckNameChanged($event)"
+    (saveClicked)="onSaveClicked()"
+    (newClicked)="onNewClicked()">
+  </app-deck-header>
+
+  <div class="deck-builder-content">
+    <!-- Left panel: Deck summary showing cards in deck -->
+    <div class="deck-summary-panel">
+      <app-deck-summary
+        [groupedCards]="groupedCards$ | async"
+        (removeCard)="onRemoveCard($event)">
+      </app-deck-summary>
+    </div>
+
+    <!-- Right panel: Card search and results -->
+    <div class="card-search-panel">
+      <!-- Card search filters -->
+      <app-card-search-filter
+        [currentFilters]="cardFilters$ | async"
+        (filtersChanged)="onFiltersChanged($event)">
+      </app-card-search-filter>
+
+      <!-- Card search results table -->
+      <app-card-table
+        [cards]="cards$ | async"
+        [pagination]="cardListPagination$ | async"
+        [isLoading]="cardListLoading$ | async"
+        (pageChanged)="onPageChanged($event)"
+        (sortChanged)="onSortChanged($event)"
+        (addCard)="onAddCard($event)">
+      </app-card-table>
+    </div>
+  </div>
+</div> 

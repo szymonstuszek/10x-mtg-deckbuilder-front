@@ -1,0 +1,47 @@
+.deck-builder-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.deck-builder-content {
+  display: flex;
+  flex: 1;
+  gap: 24px;
+  margin-top: 24px;
+  height: calc(100vh - 120px); // Approximate height minus header
+  
+  @media (max-width: 960px) {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.deck-summary-panel {
+  width: 30%;
+  min-width: 300px;
+  max-width: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  
+  @media (max-width: 960px) {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+}
+
+.card-search-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+} 
