@@ -76,7 +76,7 @@ export const deckReducer = createReducer(
     const existingCardIndex = state.cards.findIndex(
       (deckCard) => deckCard.card.apiId === card.apiId
     );
-    
+
     let updatedCards: DeckCard[];
     
     if (existingCardIndex >= 0) {

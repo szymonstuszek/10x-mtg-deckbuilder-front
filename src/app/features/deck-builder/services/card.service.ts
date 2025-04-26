@@ -10,7 +10,8 @@ import { MockDataService } from './mock-data.service';
 })
 export class CardService {
   private apiUrl = environment.apiUrl;
-  private useMockData = !environment.production; // Use mock data in development
+  // temp use mock data in development
+  private useMockData = environment.production; // Use mock data in development
 
   constructor(
     private http: HttpClient,
@@ -41,7 +42,8 @@ export class CardService {
     // Build query params
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
+      // .set('pageSize', pageSize.toString())
+      ;
     
     // Add sort parameters if provided
     if (sort.active && sort.direction) {

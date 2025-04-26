@@ -42,11 +42,12 @@ export const cardListReducer = createReducer(
   on(CardListActions.loadCardsSuccess, (state: any, { response }) => ({
     ...state,
     cards: response.cards,
-    pagination: {
+    // temp make pagination optional
+    pagination: response.pagination ? {
       pageIndex: response.pagination.page - 1, // Convert from 1-based to 0-based
       pageSize: response.pagination.pageSize,
       totalItems: response.pagination.totalRecords
-    },
+    } : null,
     isLoading: false
   })),
   
