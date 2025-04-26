@@ -292,6 +292,7 @@
   - Ensure query parameters conform to expected formats (e.g., numeric for pagination).
 
 - **Deck Validation**:
+  - **Validation rules**: depend on the deck format, different rules for: standard, modern, pauper etc
   - **Minimum Deck Size**: A standard deck must have at least 60 cards. (PRD: "A standard deck must contain a minimum of 60 cards.")
   - **Copy Limit**: No more than 4 copies of any non-land card are allowed. (PRD: "No more than 4 copies of any non-land card are allowed.")
   - Validation occurs during deck updates.
