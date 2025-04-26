@@ -71,6 +71,7 @@ export class MockDataService {
   private mockCards: Card[] = [
     {
       apiId: '1',
+      id: 1,
       name: 'Llanowar Elves',
       manaCost: '{G}',
       cmc: 1,
@@ -92,6 +93,7 @@ export class MockDataService {
     },
     {
       apiId: '2',
+      id: 2,
       name: 'Counterspell',
       manaCost: '{U}{U}',
       cmc: 2,
@@ -113,6 +115,7 @@ export class MockDataService {
     },
     {
       apiId: '3',
+      id: 3,
       name: 'Day of Judgment',
       manaCost: '{2}{W}{W}',
       cmc: 4,
@@ -134,6 +137,7 @@ export class MockDataService {
     },
     {
       apiId: '4',
+      id: 4,
       name: 'Breeding Pool',
       manaCost: null,
       cmc: 0,
@@ -155,6 +159,7 @@ export class MockDataService {
     },
     {
       apiId: '5',
+      id: 5,
       name: 'Jace, the Mind Sculptor',
       manaCost: '{2}{U}{U}',
       cmc: 4,
@@ -176,6 +181,7 @@ export class MockDataService {
     },
     {
       apiId: '6',
+      id: 6,
       name: 'Lightning Bolt',
       manaCost: '{R}',
       cmc: 1,
@@ -197,6 +203,7 @@ export class MockDataService {
     },
     {
       apiId: '7',
+      id: 7,
       name: 'Tarmogoyf',
       manaCost: '{1}{G}',
       cmc: 2,
@@ -218,6 +225,7 @@ export class MockDataService {
     },
     {
       apiId: '8',
+      id: 8,
       name: 'Avacyn, Angel of Hope',
       manaCost: '{5}{W}{W}{W}',
       cmc: 8,
@@ -239,6 +247,7 @@ export class MockDataService {
     },
     {
       apiId: '9',
+      id: 9,
       name: 'Sol Ring',
       manaCost: '{1}',
       cmc: 1,
@@ -260,6 +269,7 @@ export class MockDataService {
     },
     {
       apiId: '10',
+      id: 10,
       name: 'Wrath of God',
       manaCost: '{2}{W}{W}',
       cmc: 4,

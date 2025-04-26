@@ -1,6 +1,7 @@
 // Define the card interface based on the provided CardDto
 export interface Card {
   apiId: string; // Unique ID from the external API (e.g., multiverseid, scryfall id)
+  id: number; // Card ID from the backend
   name: string;
   manaCost: string | null;
   cmc: number;

@@ -74,7 +74,7 @@ export const deckReducer = createReducer(
   // Modify Deck Cards
   on(DeckActions.addCardToDeck, (state, { card }) => {
     const existingCardIndex = state.cards.findIndex(
-      (deckCard) => deckCard.card.apiId === card.apiId
+      (deckCard) => deckCard.card.id === card.id
     );
 
     let updatedCards: DeckCard[];
@@ -106,7 +106,7 @@ export const deckReducer = createReducer(
   
   on(DeckActions.removeCardFromDeck, (state, { card }) => {
     const updatedCards = state.cards.filter(
-      (deckCard) => deckCard.card.apiId !== card.apiId
+      (deckCard) => deckCard.card.id !== card.id
     );
     
     const validation = validateDeckState(updatedCards);
@@ -121,7 +121,7 @@ export const deckReducer = createReducer(
   
   on(DeckActions.decrementCardQuantity, (state, { card }) => {
     const existingCardIndex = state.cards.findIndex(
-      (deckCard) => deckCard.card.apiId === card.apiId
+      (deckCard) => deckCard.card.id === card.id
     );
     
     if (existingCardIndex < 0) {
@@ -135,7 +135,7 @@ export const deckReducer = createReducer(
     if (currentQuantity <= 1) {
       // Remove card if quantity would become 0
       updatedCards = state.cards.filter(
-        (deckCard) => deckCard.card.apiId !== card.apiId
+        (deckCard) => deckCard.card.id !== card.id
       );
     } else {
       // Decrement quantity
@@ -158,7 +158,7 @@ export const deckReducer = createReducer(
   
   on(DeckActions.incrementCardQuantity, (state, { card }) => {
     const existingCardIndex = state.cards.findIndex(
-      (deckCard) => deckCard.card.apiId === card.apiId
+      (deckCard) => deckCard.card.id === card.id
     );
     
     if (existingCardIndex < 0) {
@@ -184,7 +184,7 @@ export const deckReducer = createReducer(
   
   on(DeckActions.updateCardQuantity, (state, { card, quantity }) => {
     const existingCardIndex = state.cards.findIndex(
-      (deckCard) => deckCard.card.apiId === card.apiId
+      (deckCard) => deckCard.card.id === card.id
     );
     
     let updatedCards: DeckCard[];
@@ -192,7 +192,7 @@ export const deckReducer = createReducer(
     if (quantity <= 0) {
       // Remove card if quantity is 0 or negative
       updatedCards = state.cards.filter(
-        (deckCard) => deckCard.card.apiId !== card.apiId
+        (deckCard) => deckCard.card.id !== card.id
       );
     } else if (existingCardIndex >= 0) {
       // Update existing card

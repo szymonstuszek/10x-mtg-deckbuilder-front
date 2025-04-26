@@ -94,6 +94,7 @@ export const selectGroupedDeckCards = createSelector(
       // Card types usually appear in a specific order, with the first type
       // being the most relevant for grouping
       const types = deckCard.card.types;
+      
       if (types.includes('Land')) {
         primaryType = 'Land';
       } else if (types.includes('Creature')) {
