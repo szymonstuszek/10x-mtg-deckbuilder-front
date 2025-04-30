@@ -6,7 +6,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
   standalone: false
 })
 export class AppComponent implements OnInit {
