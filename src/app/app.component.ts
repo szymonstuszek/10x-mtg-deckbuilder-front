@@ -16,17 +16,9 @@ export class AppComponent implements OnInit {
 
   configuration$ = this.oidcSecurityService.getConfiguration();
   userData$ = this.oidcSecurityService.userData$;
-  isAuthenticated = false;
 
   ngOnInit(): void {
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
-      this.isAuthenticated = isAuthenticated;
-
-    });
-  }
-
-  login(): void {
-    this.oidcSecurityService.authorize();
+    this.oidcSecurityService.checkAuth().subscribe();
   }
 
   logout(): void {
@@ -37,7 +29,7 @@ export class AppComponent implements OnInit {
 
     // Redirect to Cognito logout endpoint
     const clientId = '4rfqprqpe0jcvofcmogv3if547';
-    const logoutUri = 'http://localhost:4200'; // Use configured redirectUrl or specify your logout page
+    const logoutUri = 'http://localhost:4200'; // Redirect to login page after logout
     const cognitoDomain = 'https://eu-central-1wuzi3cd3n.auth.eu-central-1.amazoncognito.com';
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutUri}`;
   }
