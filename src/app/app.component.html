@@ -12,6 +12,31 @@
         </a>
         <!-- Additional navigation items can be added here -->
       </nav>
+
+      <!-- Authentication Section -->
+      <div class="auth-section">
+        <ng-container *ngIf="isAuthenticated; else noAuth">
+          <div class="user-info">
+            <span>Authenticated!</span>
+            <button mat-button (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              Logout
+            </button>
+            <br />
+            userData:
+            <pre>{{ userData$ | async | json }}</pre>
+          </div>
+        </ng-container>
+
+        <ng-template #noAuth>
+          <button mat-button (click)="login()">
+            <mat-icon>login</mat-icon>
+            Login
+          </button>
+        </ng-template>
+      </div>
+      <!-- End Authentication Section -->
+
     </div>
   </header>
 

@@ -19,6 +19,7 @@ import { CardListEffects } from './features/deck-builder/store/card-list/card-li
 import { deckReducer } from './features/deck-builder/store/deck/deck.reducer';
 import { DeckService } from './features/deck-builder/services/deck.service';
 import { CardService } from './features/deck-builder/services/card.service';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CardService } from './features/deck-builder/services/card.service';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pause recording actions and state changes when the extension window is not open
-    })
+    }),
+    AuthConfigModule
   ],
   providers: [
     DeckService,
