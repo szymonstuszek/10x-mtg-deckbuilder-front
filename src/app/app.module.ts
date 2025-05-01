@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { deckReducer } from './features/deck-builder/store/deck/deck.reducer';
 import { DeckService } from './features/deck-builder/services/deck.service';
 import { CardService } from './features/deck-builder/services/card.service';
 import { AuthConfigModule } from './auth/auth-config.module';
+import { AuthInterceptor } from './auth/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AuthConfigModule } from './auth/auth-config.module';
   ],
   providers: [
     DeckService,
-    CardService
+    CardService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
