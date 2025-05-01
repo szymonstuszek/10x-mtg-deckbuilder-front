@@ -29,7 +29,10 @@ export class AppComponent implements OnInit {
 
     // Redirect to Cognito logout endpoint
     const clientId = '4rfqprqpe0jcvofcmogv3if547';
-    const logoutUri = 'http://localhost:4200'; // Redirect to login page after logout
+
+    //todo setup for local and prod
+    // const logoutUri = 'http://localhost:4200';
+    const logoutUri = 'https://10x-mtg-deckbuilder.com';    
     const cognitoDomain = 'https://eu-central-1wuzi3cd3n.auth.eu-central-1.amazoncognito.com';
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutUri}`;
   }
