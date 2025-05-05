@@ -1,4 +1,5 @@
+// TODO setup switch between local and prod
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  apiUrl: 'https://10x-mtg-deckbuilder-api.com'
 }; 
