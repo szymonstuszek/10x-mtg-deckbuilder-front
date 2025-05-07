@@ -9,18 +9,18 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { switchMap, catchError, take } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client'; // Import the service
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   // TODO replace with the actual base URL or pattern for your backend API
-  private readonly BACKEND_API_URL_PATTERN = 'localhost:8080'; 
+  private readonly BACKEND_API_URL_PATTERN = environment.apiUrl;
 
   constructor(private oidcSecurityService: OidcSecurityService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    // Check if the request URL matches your backend API pattern
     const isApiRequest = request.url.includes(this.BACKEND_API_URL_PATTERN);
 
     if (!isApiRequest) {

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppModule } from './app.module';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +30,7 @@ export class AppComponent implements OnInit {
 
     // Redirect to Cognito logout endpoint
     const clientId = '4rfqprqpe0jcvofcmogv3if547';
-
-    //todo setup for local and prod
-    // const logoutUri = 'http://localhost:4200';
-    const logoutUri = 'https://10x-mtg-deckbuilder.com';    
+    const logoutUri = environment.postLogoutRedirectUri;
     const cognitoDomain = 'https://eu-central-1wuzi3cd3n.auth.eu-central-1.amazoncognito.com';
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutUri}`;
   }

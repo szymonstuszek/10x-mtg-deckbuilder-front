@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { AuthModule } from 'angular-auth-oidc-client';
+import { environment } from '../../environments/environment';
 
 
 @NgModule({
     imports: [AuthModule.forRoot({
         config: {
               authority: 'https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_wUzI3Cd3n',
-              //todo setup for local and prod
-              //redirectUrl: 'http://localhost:4200',
-              redirectUrl: 'https://10x-mtg-deckbuilder.com',
-            //   postLogoutRedirectUri: 'http://localhost:4200',
-              postLogoutRedirectUri: 'https://10x-mtg-deckbuilder.com',
+              redirectUrl: environment.redirectUrl,
+              postLogoutRedirectUri: environment.postLogoutRedirectUri,
               clientId: '4rfqprqpe0jcvofcmogv3if547',
-              scope: 'email openid phone', // 'openid profile offline_access ' + your scopes
+              scope: 'email openid phone',
               responseType: 'code',
               silentRenew: true,
               useRefreshToken: true,

@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: '/api' // Will be deployed alongside the API
+  apiUrl: 'https://10x-mtg-deckbuilder-api.com',
+  redirectUrl: 'https://10x-mtg-deckbuilder.com',
+  postLogoutRedirectUri: 'https://10x-mtg-deckbuilder.com'
 }; 
