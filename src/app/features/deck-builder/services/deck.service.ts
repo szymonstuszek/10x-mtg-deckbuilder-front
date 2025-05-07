@@ -10,8 +10,7 @@ import { MockDataService } from './mock-data.service';
 })
 export class DeckService {
   private apiUrl = environment.apiUrl;
-  // todo revert - testing
-  private useMockData = environment.production; // Use mock data in development
+  private useMockData = false;
 
   constructor(
     private http: HttpClient,

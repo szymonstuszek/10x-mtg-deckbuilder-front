@@ -10,8 +10,7 @@ import { MockDataService } from './mock-data.service';
 })
 export class CardService {
   private apiUrl = environment.apiUrl;
-  // temp use mock data in development
-  private useMockData = environment.production; // Use mock data in development
+  private useMockData = false;
 
   constructor(
     private http: HttpClient,
