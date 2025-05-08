@@ -42,12 +42,12 @@ export class DeckEffects {
     switchMap(([_, deck]) => {
       // Prepare the cards DTO
       // todo review: made createDeckCards to match the backend type
-      const cards: DeckCardRequestDto[] = deck.cards.map(deckCard => ({
+      const cardsForUpdate: DeckCardRequestDto[] = deck.cards.map(deckCard => ({
         quantity: deckCard.quantity,
         card: deckCard.card
       }));
 
-      const createDeckCards: Card[] = deck.cards.map(deckCard => deckCard.card);
+      // const createDeckCards: Card[] = deck.cards.map(deckCard => deckCard.card); // Original line, commented out
       
       // If deck has an ID, update it; otherwise create a new deck
       if (deck.id !== null) {
@@ -55,7 +55,7 @@ export class DeckEffects {
         const updateDto: UpdateDeckRequestDto = {
           deckName: deck.name,
           deckDescription: deck.description,
-          cards
+          cards: cardsForUpdate // Uses DeckCardRequestDto for updates, which is correct as per models
         };
         
         return this.deckService.updateDeck(deckId, updateDto).pipe(
@@ -73,11 +73,26 @@ export class DeckEffects {
           })
         );
       } else {
+        // Transform deck.cards to match the backend's expected CardDto structure for creation
+        const cardsForCreatePayload = deck.cards.map(deckCard => {
+          const cardData = deckCard.card;
+          return {
+            ...cardData,              // Spread all properties from the frontend Card object
+            quantity: deckCard.quantity, // Add the quantity
+            cardText: cardData.text,     // Map frontend 'text' to backend 'cardText'
+            // Ensure other field name alignments or transformations if necessary
+            // For example, if backend expects 'id' as string and frontend has it as number,
+            // you might need: id: cardData.id.toString(),
+            // However, based on backend CardDto, apiId is the key identifier from client.
+            // The root 'id' in backend CardDto might be its own database ID.
+          };
+        });
+
         const createDto: CreateDeckRequestDto = {
           deckName: deck.name,
           deckFormat: deck.format,
           deckDescription: deck.description,
-          cards: createDeckCards
+          cards: cardsForCreatePayload as any // Cast to any to bypass current CreateDeckRequestDto.cards type (Card[])
         };
 
         return this.deckService.createDeck(createDto).pipe(
