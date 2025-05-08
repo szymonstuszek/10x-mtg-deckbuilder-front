@@ -34,8 +34,8 @@ export class DecksEffects {
                 map((randomCardResponse: RandomCardResponse) => {
                   const deckMeta: DeckMeta = {
                     id: deckDto.id,
-                    deckName: deckDto.deck_name, 
-                    deckFormat: deckDto.deck_format,
+                    deckName: deckDto.deckName,
+                    deckFormat: deckDto.deckFormat,
                     representativeImageUrl: randomCardResponse?.card?.imageUrl || null,
                   };
                   return deckMeta;
@@ -45,8 +45,8 @@ export class DecksEffects {
                   // This ensures the deck is still listed.
                   const deckMeta: DeckMeta = {
                     id: deckDto.id,
-                    deckName: deckDto.deck_name,
-                    deckFormat: deckDto.deck_format,
+                    deckName: deckDto.deckName,
+                    deckFormat: deckDto.deckFormat,
                     representativeImageUrl: null, 
                   };
                   return of(deckMeta); 

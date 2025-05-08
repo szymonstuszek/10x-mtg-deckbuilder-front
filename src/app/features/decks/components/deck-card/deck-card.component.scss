@@ -4,7 +4,7 @@
 }
 
 .deck-card-image {
-  object-fit: cover; // Or contain, depending on desired look
+  object-fit: contain;
   height: 200px; // Example height, adjust as needed
   background-color: #f0f0f0; // Placeholder background for images that don't load or are missing
 } 

@@ -11,6 +11,11 @@
           <mat-icon>dashboard</mat-icon>
           Home
         </a>
+        <a *ngIf="(userData$ | async)?.userData as user" 
+          mat-button routerLink="/decks" routerLinkActive="active">
+          <mat-icon>view_list</mat-icon>
+          Decks
+        </a>
       </nav>
 
       <button *ngIf="(userData$ | async)?.userData as user" mat-button (click)="logout()">

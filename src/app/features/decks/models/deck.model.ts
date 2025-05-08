@@ -13,9 +13,9 @@ export interface RandomCardResponse {
 
 export interface BackendDeckDto {
   id: number;
-  deck_name: string; // Or deckName if backend uses camelCase
-  deck_format: string;
-  deck_description: string | null;
-  created_at: string;
-  updated_at: string;
+  deckName: string;
+  deckFormat: string;
+  deckDescription: string | null;
+  createdAt: string;
+  updatedAt: string;
 } 
