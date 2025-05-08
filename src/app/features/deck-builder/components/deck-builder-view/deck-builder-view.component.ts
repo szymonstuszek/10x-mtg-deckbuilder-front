@@ -124,6 +124,6 @@ export class DeckBuilderViewComponent implements OnInit, OnDestroy {
   
   // Handler for deck summary interactions
   onRemoveCard(card: Card): void {
-    this.store.dispatch(DeckActions.removeCardFromDeck({ card }));
+    this.store.dispatch(DeckActions.decrementCardQuantity({ card }));
   }
 } 
