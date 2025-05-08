@@ -5,6 +5,12 @@
   </mat-card-header>
   <div class="deck-card-image-wrapper">
     <img [src]="deck.representativeImageUrl || 'assets/images/placeholder-card.png'"
+         [alt]="deck.deckName + ' representative image (backest)'"
+         class="stacked-image image-back-4">
+    <img [src]="deck.representativeImageUrl || 'assets/images/placeholder-card.png'"
+         [alt]="deck.deckName + ' representative image (backer)'"
+         class="stacked-image image-back-3">
+    <img [src]="deck.representativeImageUrl || 'assets/images/placeholder-card.png'"
          [alt]="deck.deckName + ' representative image (back)'"
          class="stacked-image image-back-2">
     <img [src]="deck.representativeImageUrl || 'assets/images/placeholder-card.png'"
