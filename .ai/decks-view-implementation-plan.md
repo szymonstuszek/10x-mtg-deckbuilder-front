@@ -69,7 +69,7 @@ DecksViewComponent (Container/View - Handles State/Logic)
 interface DeckMeta {
   id: number;
   deckName: string;
-  // deckFormat: string; // Likely not needed for card display
+  deckFormat: string;
   // deckDescription: string | null; // Likely not needed for card display
   // createdAt: string; // Optional: Could be displayed if needed
   // updatedAt: string; // Optional: Could be displayed if needed

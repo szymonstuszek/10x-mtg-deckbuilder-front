@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/deck-builder/deck-builder.module').then(m => m.DeckBuilderModule)
   },
   {
+    path: 'decks',
+    loadChildren: () => import('./features/decks/decks.module').then(m => m.DecksModule),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
