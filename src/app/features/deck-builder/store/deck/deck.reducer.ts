@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { DeckCard, DeckState } from '../../models/deck.models';
+import { DeckCard, DeckState, Card } from '../../models/deck.models';
 import * as DeckActions from './deck.actions';
 
 export const initialState: DeckState = {
@@ -26,21 +26,75 @@ export const deckReducer = createReducer(
   })),
   
   on(DeckActions.loadDeckSuccess, (state, { deckDetails }) => {
-    const cards: DeckCard[] = deckDetails.cards.map(card => ({
-      card: card.card,
-      quantity: card.quantity
-    }));
+    // Assuming deckDetails.cards is an array of backend card objects
+    // where each object has quantity, cardText, and other card properties.
+    // Example backend card: { apiId, name, quantity, cardText, id (string UUID), ... }
+    const rawCardsFromBackend = (deckDetails as any).cards || [];
+
+    const processedCards: DeckCard[] = rawCardsFromBackend.map((backendCard: any) => {
+      const {
+        // Fields for frontend Card model - destructure all that are available
+        apiId, name, manaCost, cmc, colors, colorIdentity, type, types, subtypes, rarity, set, setName,
+        cardText, // Backend uses cardText
+        artist, number, power, toughness, layout, imageUrl,
+        // Quantity is directly on the backend card object
+        quantity,
+        // Backend's own ID (string, e.g. UUID)
+        id: backendCardStringId,
+        // Other potential fields from backend
+        multiverseid, originalText, originalType
+      } = backendCard;
+
+      // Construct the frontend Card object
+      const frontendCard: Card = {
+        apiId: apiId,
+        // FIXME: Frontend Card model expects 'id: number'. Backend provides 'id: string' (backendCardStringId).
+        // This is a type mismatch that cannot be resolved without model changes or a new strategy for 'id'.
+        // Using a placeholder value. This needs to be addressed if Card.id is critical.
+        id: -1, // Placeholder for the numeric ID
+        name: name,
+        manaCost: manaCost,
+        cmc: cmc,
+        colors: colors,
+        colorIdentity: colorIdentity,
+        type: type,
+        types: types,
+        subtypes: subtypes,
+        rarity: rarity,
+        set: set,
+        setName: setName,
+        text: cardText, // Map backend's cardText to frontend's text
+        artist: artist,
+        number: number,
+        power: power,
+        toughness: toughness,
+        layout: layout,
+        imageUrl: imageUrl,
+        // Note: multiverseid, originalText, originalType from backendCard are not mapped
+        // as they are not in the current frontend Card model definition based on previous context.
+        // If they were added to Card model, they should be mapped here.
+      };
+
+      return {
+        card: frontendCard,
+        quantity: quantity !== undefined ? quantity : 1 // Default to 1 if quantity is missing, though it should be there
+      };
+    });
     
+    // Handle deck metadata: backend sample shows it nested in deckInfo,
+    // while DeckDetailsDto is flat. Prioritize deckInfo if it exists.
+    const deckInfoSource = (deckDetails as any).deckInfo || deckDetails;
+
     return {
       ...state,
-      id: deckDetails.id,
-      name: deckDetails.deckName,
-      format: deckDetails.deckFormat,
-      description: deckDetails.deckDescription,
-      cards,
+      id: deckInfoSource.id,
+      name: deckInfoSource.deckName,
+      format: deckInfoSource.deckFormat,
+      description: deckInfoSource.deckDescription,
+      cards: processedCards,
       isLoading: false,
-      isValid: validateDeckState(cards).isValid,
-      validationMessages: validateDeckState(cards).messages
+      isValid: validateDeckState(processedCards).isValid,
+      validationMessages: validateDeckState(processedCards).messages
     };
   }),
   
