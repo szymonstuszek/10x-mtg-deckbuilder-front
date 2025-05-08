@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 
@@ -17,6 +18,7 @@ export class DecksEffects {
   private deckService = inject(DeckService);
   private router = inject(Router);
   private store = inject(Store); // If needed for other operations, e.g. DeckBuilderActions
+  private snackBar = inject(MatSnackBar);
 
   loadDecks$ = createEffect(() =>
     this.actions$.pipe(
@@ -58,7 +60,9 @@ export class DecksEffects {
             );
           }),
           catchError((error) => {
-            const errorMessage = error.message || 'Failed to load decks';
+            const errorMessage = typeof error === 'string' ? error : (error.message || 'Failed to load decks');
+            // Optional: Show snackbar for load errors too, though handled in component
+            // this.snackBar.open(errorMessage, 'Close', { duration: 5000, panelClass: ['error-snackbar'] });
             return of(DecksActions.loadDecksFailure({ error: errorMessage }));
           })
         )
@@ -71,9 +75,19 @@ export class DecksEffects {
       ofType(DecksActions.deleteDeck),
       switchMap((action) =>
         this.deckService.deleteDeck(action.deckId).pipe(
-          map(() => DecksActions.deleteDeckSuccess({ deckId: action.deckId })),
+          map(() => {
+            this.snackBar.open('Deck deleted successfully', 'Close', {
+              duration: 3000,
+              panelClass: ['success-snackbar'] // Optional: for custom styling
+            });
+            return DecksActions.deleteDeckSuccess({ deckId: action.deckId });
+          }),
           catchError((error) => {
-            const errorMessage = error.message || 'Failed to delete deck';
+            const errorMessage = typeof error === 'string' ? error : (error.message || 'Failed to delete deck');
+            this.snackBar.open(errorMessage, 'Close', {
+              duration: 5000,
+              panelClass: ['error-snackbar'] // Optional: for custom styling
+            });
             return of(DecksActions.deleteDeckFailure({ error: errorMessage }));
           })
         )

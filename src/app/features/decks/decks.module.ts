@@ -17,11 +17,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; // For error no
 // Components
 import { DecksViewComponent } from './containers/decks-view/decks-view.component';
 import { DeckCardComponent } from './components/deck-card/deck-card.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     DecksViewComponent,
-    DeckCardComponent
+    DeckCardComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,

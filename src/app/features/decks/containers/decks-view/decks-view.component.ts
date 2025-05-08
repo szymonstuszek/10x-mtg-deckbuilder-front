@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-// import { ConfirmDialogComponent } from '@app/shared/components/confirm-dialog/confirm-dialog.component'; // Assuming shared confirm dialog
-// import { ConfirmDialogData } from '@app/shared/components/confirm-dialog/confirm-dialog.model'; // Assuming shared confirm dialog model
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog.model';
 
 import { DeckMeta } from '../../models/deck.model';
 import * as DecksActions from '../../store/decks.actions';
@@ -44,22 +44,22 @@ export class DecksViewComponent implements OnInit {
   }
 
   onDeleteDeck(deckId: number): void {
-    // const dialogData: ConfirmDialogData = {
-    //   title: 'Confirm Deletion',
-    //   message: 'Are you sure you want to delete this deck? This action cannot be undone.'
-    // };
-    // const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-    //   data: dialogData
-    // });
+    const dialogData: ConfirmDialogData = {
+      title: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this deck? This action cannot be undone.',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
+    };
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.store.dispatch(DecksActions.deleteDeck({ deckId }));
-    //   }
-    // });
-    // For now, directly dispatch delete until ConfirmDialogComponent is available/integrated
-    if (confirm('Are you sure you want to delete this deck?')) { // Temporary confirm
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         this.store.dispatch(DecksActions.deleteDeck({ deckId }));
-    }
+      }
+    });
   }
 } 
