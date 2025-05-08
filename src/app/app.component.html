@@ -26,8 +26,8 @@
     </div>
   </header>
 
-  <main class="app-content">
-    <router-outlet></router-outlet>
+  <main class="app-content" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </main>
 
   <footer class="app-footer">

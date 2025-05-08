@@ -16,6 +16,10 @@ html, body {
   background-color: #f8f8f8;
 }
 
+html {
+  overflow-y: scroll; /* Always show vertical scrollbar to prevent layout shifts */
+}
+
 /* Common Utility Classes */
 .text-center {
   text-align: center;

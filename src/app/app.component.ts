@@ -3,12 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { AppModule } from './app.module';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { environment } from '../environments/environment';
+import { fader } from './route-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: false
+  standalone: false,
+  animations: [fader]
 })
 export class AppComponent implements OnInit {
   title = 'dev10x-mtg-deckbuilder';
@@ -33,5 +35,9 @@ export class AppComponent implements OnInit {
     const logoutUri = environment.postLogoutRedirectUri;
     const cognitoDomain = 'https://eu-central-1wuzi3cd3n.auth.eu-central-1.amazoncognito.com';
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutUri}`;
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

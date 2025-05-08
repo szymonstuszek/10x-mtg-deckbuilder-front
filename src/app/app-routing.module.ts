@@ -11,11 +11,13 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/deck-builder/deck-builder.module').then(m => m.DeckBuilderModule)
+    loadChildren: () => import('./features/deck-builder/deck-builder.module').then(m => m.DeckBuilderModule),
+    data: { animation: 'isLeft' }
   },
   {
     path: 'decks',
     loadChildren: () => import('./features/decks/decks.module').then(m => m.DecksModule),
+    data: { animation: 'isRight' }
   },
   {
     path: '**',
