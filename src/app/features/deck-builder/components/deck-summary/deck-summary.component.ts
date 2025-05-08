@@ -63,4 +63,8 @@ export class DeckSummaryComponent {
   onRemoveCard(card: Card): void {
     this.removeCard.emit(card);
   }
+
+  trackByCardGroup(index: number, group: { name: string, cards: DeckCard[], count: number }): string {
+    return group.name;
+  }
 } 

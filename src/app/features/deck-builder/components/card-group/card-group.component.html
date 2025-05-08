@@ -5,7 +5,7 @@
 
   <div class="card-list">
     <app-card-item 
-      *ngFor="let deckCard of cards" 
+      *ngFor="let deckCard of cards; trackBy: trackByDeckCard" 
       [deckCard]="deckCard"
       (removeClicked)="onCardRemove($event)">
     </app-card-item>

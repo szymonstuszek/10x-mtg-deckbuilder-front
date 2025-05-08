@@ -13,7 +13,7 @@
     <div class="card-groups">
       <!-- Iterate through card groups -->
       <app-card-group 
-        *ngFor="let group of getOrderedCardGroups()" 
+        *ngFor="let group of getOrderedCardGroups(); trackBy: trackByCardGroup" 
         [groupName]="group.name"
         [groupCount]="group.count"
         [cards]="group.cards"

@@ -14,13 +14,12 @@ export class CardGroupComponent {
   
   @Output() removeCard = new EventEmitter<Card>();
 
-  constructor() { }
 
-  // todo review: there's some issue with removing, works if only 1 item,
-  // if there is multiple, it will remove and update the count only after all items are removed
-  // also seems that the mat tooltip on the inner item prevents from clicking
-  // check also overlay
   onCardRemove(card: Card): void {
     this.removeCard.emit(card);
+  }
+
+  trackByDeckCard(index: number, deckCard: DeckCard): string | number {
+    return deckCard.card.apiId ? deckCard.card.apiId : index;
   }
 } 
