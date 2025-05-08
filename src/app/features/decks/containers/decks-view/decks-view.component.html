@@ -1,0 +1,30 @@
+<div class="decks-view-container">
+  <div *ngIf="isLoading$ | async" class="loading-spinner-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading your decks...</p>
+  </div>
+
+  <div *ngIf="error$ | async as errorMsg" class="error-message-container">
+    <h2>Oops! Something went wrong.</h2>
+    <p>{{ errorMsg }}</p>
+    <button mat-raised-button color="primary" (click)="ngOnInit()">Try Again</button>
+  </div>
+
+  <div *ngIf="!(isLoading$ | async) && !(error$ | async) && (decks$ | async) as decks">
+    <div *ngIf="decks.length === 0" class="empty-state-container">
+      <h2>No Decks Yet!</h2>
+      <p>You haven't created any decks. Get started by building your first one!</p>
+      <button mat-raised-button color="primary" routerLink="/">Create New Deck</button> 
+      <!-- Assuming routerLink to deck builder is '/' -->
+    </div>
+
+    <div *ngIf="decks.length > 0" class="decks-grid">
+      <app-deck-card 
+        *ngFor="let deck of decks; trackBy: trackByDeckId"
+        [deck]="deck"
+        (editClicked)="onEditDeck($event)"
+        (deleteClicked)="onDeleteDeck($event)">
+      </app-deck-card>
+    </div>
+  </div>
+</div> 

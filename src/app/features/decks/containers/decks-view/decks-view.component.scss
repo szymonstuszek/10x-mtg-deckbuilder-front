@@ -1,0 +1,38 @@
+.decks-view-container {
+  padding: 20px;
+}
+
+.loading-spinner-container, .error-message-container, .empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px; /* Ensure it takes some space */
+}
+
+.loading-spinner-container mat-spinner {
+  margin-bottom: 20px;
+}
+
+.error-message-container h2, .empty-state-container h2 {
+  margin-bottom: 16px;
+}
+
+.error-message-container p, .empty-state-container p {
+  margin-bottom: 24px;
+  color: #666;
+}
+
+.decks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px;
+}
+
+/* Media query for smaller screens if needed for more specific adjustments */
+@media (max-width: 600px) {
+  .decks-grid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+} 

@@ -1,0 +1,18 @@
+<mat-card *ngIf="deck" class="deck-card">
+  <mat-card-header>
+    <mat-card-title>{{ deck.deckName }}</mat-card-title>
+    <mat-card-subtitle>{{ deck.deckFormat }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image 
+       [src]="deck.representativeImageUrl || 'assets/images/placeholder-card.png'" 
+       [alt]="deck.deckName + ' representative image'"
+       class="deck-card-image">
+  <mat-card-actions align="end">
+    <button mat-icon-button color="primary" aria-label="Edit deck" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" aria-label="Delete deck" (click)="onDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card> 

@@ -1,0 +1,10 @@
+.deck-card {
+  margin-bottom: 16px;
+  // Add more specific styles as needed
+}
+
+.deck-card-image {
+  object-fit: cover; // Or contain, depending on desired look
+  height: 200px; // Example height, adjust as needed
+  background-color: #f0f0f0; // Placeholder background for images that don't load or are missing
+} 

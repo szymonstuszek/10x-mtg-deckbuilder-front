@@ -43,8 +43,4 @@ export class CardListEffects {
       )
     )
   ));
-  
-  constructor() {
-    console.log('CardListEffects constructor');
-  }
 } 
