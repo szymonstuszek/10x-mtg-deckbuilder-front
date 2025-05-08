@@ -102,7 +102,7 @@ export class DeckEffects {
             });
             
             // Navigate to the deck detail page
-            this.router.navigate(['/decks', response.id]);
+            // this.router.navigate(['/decks', response.id]);
             
             return DeckActions.saveDeckSuccess({ id: response.id });
           }),
