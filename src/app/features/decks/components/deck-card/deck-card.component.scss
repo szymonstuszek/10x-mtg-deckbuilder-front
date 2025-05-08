@@ -7,4 +7,61 @@
   object-fit: contain;
   height: 200px; // Example height, adjust as needed
   background-color: #f0f0f0; // Placeholder background for images that don't load or are missing
+}
+
+.deck-card-image-wrapper {
+  position: relative;
+  width: 170px;  // Width of the area for the stack
+  height: 230px; // Height of the area for the stack, allows room for transforms
+  margin: 0 auto 24px auto; // Center stack and add bottom margin
+  display: flex; // Added to help center content if needed, though absolute positioning takes over
+  align-items: center;
+  justify-content: center;
+}
+
+.stacked-image {
+  position: absolute;
+  width: 140px;    // Actual card width
+  height: 200px;   // Actual card height (matches original .deck-card-image height)
+  object-fit: cover; // Use cover for a better card appearance
+  border-radius: 8px; // Rounded corners for cards
+  // top and left will be implicitly 50% due to parent flex centering + absolute, then transform for fine-tuning if needed
+  // but explicit top/left on wrapper + explicit top/left for images is more robust.
+  // Let's adjust: elements will be positioned from top-left of wrapper.
+  top: 15px; // Offset from top of wrapper to center and allow transform space
+  left: 15px; // Offset from left of wrapper
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease-out; // Smooth transition for hover (optional)
+}
+
+.image-front {
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); // More prominent shadow for the front card
+  // Inherits .deck-card-image styles too. Ensure object-fit: cover wins.
+  // The background-color from .deck-card-image will act as a placeholder.
+}
+
+.image-back-1 {
+  z-index: 2;
+  transform: rotate(4deg) translateX(4px) translateY(2px);
+  filter: brightness(0.95);
+}
+
+.image-back-2 {
+  z-index: 1;
+  transform: rotate(-4deg) translateX(-4px) translateY(4px);
+  filter: brightness(0.9);
+}
+
+// Optional: Hover effect to fan out the cards a bit
+.deck-card-image-wrapper:hover {
+  .image-front {
+    transform: translateY(-10px) rotate(0deg); // Lift front card slightly
+  }
+  .image-back-1 {
+    transform: rotate(8deg) translateX(8px) translateY(0px);
+  }
+  .image-back-2 {
+    transform: rotate(-8deg) translateX(-8px) translateY(2px);
+  }
 } 
