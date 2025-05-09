@@ -7,6 +7,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 
 import * as DecksActions from './decks.actions';
+import { loadDeck as loadDeckBuilderDeck } from '../../deck-builder/store/deck/deck.actions';
 import { DeckService } from '../services/deck.service';
 import { DeckMeta, BackendDeckDto, RandomCardResponse } from '../models/deck.model';
 // Assuming a global AppState or at least access to Deck Builder actions if they exist
@@ -99,10 +100,11 @@ export class DecksEffects {
     this.actions$.pipe(
       ofType(DecksActions.navigateToEditDeck),
       tap((action) => {
-        // Placeholder: Dispatch action to load deck in Deck Builder state
-        // Example: this.store.dispatch(DeckBuilderActions.loadDeckForEdit({ deckId: action.deckId }));
-        console.log('NavigateToEditEffect: Dispatching action to load deck for edit (ID: ' + action.deckId + ') in DeckBuilder state - (Placeholder)');
-        this.router.navigate(['/']);
+        // Dispatch action to load deck in Deck Builder state
+        this.store.dispatch(loadDeckBuilderDeck({ deckId: action.deckId }));
+        console.log('NavigateToEditEffect: Dispatched loadDeckBuilderDeck for deck ID: ' + action.deckId);
+        // Navigate to the deck editor route
+        this.router.navigate(['/decks', action.deckId]);
       })
     ),
     { dispatch: false }
