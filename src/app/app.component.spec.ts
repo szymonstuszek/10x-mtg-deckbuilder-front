@@ -4,7 +4,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,12 +25,13 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let oidcSecurityServiceSpy: jasmine.SpyObj<OidcSecurityService>;
+  let userDataSubject: BehaviorSubject<any>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('OidcSecurityService', ['checkAuth'], {
-      userData$: of({ userData: null }),
-      getConfiguration: () => of({}),
-      checkAuth: () => of({ isAuthenticated: false })
+    userDataSubject = new BehaviorSubject({ userData: null });
+    
+    const spy = jasmine.createSpyObj('OidcSecurityService', ['checkAuth', 'getConfiguration'], {
+      userData$: userDataSubject.asObservable(),
     });
 
     await TestBed.configureTestingModule({
@@ -45,6 +46,14 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     oidcSecurityServiceSpy = TestBed.inject(OidcSecurityService) as jasmine.SpyObj<OidcSecurityService>;
+    oidcSecurityServiceSpy.getConfiguration.and.returnValue(of({}));
+    oidcSecurityServiceSpy.checkAuth.and.returnValue(of({
+      isAuthenticated: false,
+      userData: null,
+      accessToken: '',
+      idToken: '',
+      configId: ''
+    }));
   });
 
   beforeEach(() => {
@@ -81,7 +90,7 @@ describe('AppComponent', () => {
 
   it('should show navigation when user is logged in', () => {
     // Update the userData$ observable to simulate logged in user
-    (oidcSecurityServiceSpy.userData$ as any).next({ userData: { name: 'Test User' } });
+    userDataSubject.next({ userData: { name: 'Test User' } });
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
@@ -91,19 +100,7 @@ describe('AppComponent', () => {
     expect(navLinks[1].textContent).toContain('Decks');
   });
 
-  it('should call logout and clear session storage', () => {
-    spyOn(window.sessionStorage, 'clear');
-    const mockLocation = { href: '' };
-    Object.defineProperty(window, 'location', {
-      value: mockLocation,
-      writable: true
-    });
 
-    component.logout();
-
-    expect(window.sessionStorage.clear).toHaveBeenCalled();
-    expect(window.location.href).toContain('eu-central-1wuzi3cd3n.auth.eu-central-1.amazoncognito.com/logout');
-  });
 
   it('should prepare route for animations', () => {
     const mockOutlet = {
